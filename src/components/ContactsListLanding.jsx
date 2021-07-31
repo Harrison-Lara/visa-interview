@@ -26,23 +26,22 @@ export const ContactsListLanding = () => {
       data?.results?.map((contact, index) => {
         const props = {
           id: index,
-          firstName: contact.name.first,
-          lastName: contact.name.last,
-          phoneNumber: contact.phone,
-          image: contact.picture.large,
+          contact,
+          isLoading: loading,
         }
 
         return <ContactCard {...props} />
       }),
-    [data?.results]
+    [data?.results, loading]
   )
 
+  if (error) {
+    return <ContactsListWrapper>Unable to load Contacts</ContactsListWrapper>
+  }
+
   return (
-    <ContactsListWrapper
-      id="contactsLandingWrapper"
-      key="contactsLandingWrapper"
-    >
-      <Container className={cardGrid} maxWidth="md">
+    <ContactsListWrapper>
+      <Container className={cardGrid}>
         <Grid container spacing={4}>
           {generateContactCards}
         </Grid>
