@@ -11,10 +11,9 @@ import {
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import EditIcon from '@material-ui/icons/Edit'
-import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
 
-import { ActionType } from '../constants'
-import { useContactsContext } from '../context'
+import { contactShape } from '../propTypes'
+import { DeleteDialog } from './DeleteDialog'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -46,13 +45,12 @@ export const ContactCard = ({ id, contact, isLoading }) => {
     email,
   } = contact
   const { card, info, content, photo, actions } = useStyles()
-  const { dispatch } = useContactsContext()
 
   const fullName = `${firstName} ${lastName}`
   const guid = contact.login.uuid
 
   return (
-    <Grid item key={card} xs={12} sm={12} md={6} lg={4}>
+    <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card className={card} id={guid} key={guid}>
         {isLoading ? (
           <Skeleton variant="rect" width="100%">
@@ -107,16 +105,21 @@ export const ContactCard = ({ id, contact, isLoading }) => {
             )}
           </CardContent>
           <div className={actions}>
-            <IconButton aria-label="edit" color="primary">
+            <IconButton
+              key="editButton"
+              id="editButton"
+              aria-label="edit"
+              color="primary"
+            >
               <EditIcon />
             </IconButton>
-            <IconButton
+            <DeleteDialog
+              key="deleteDialogButton"
+              id="deleteDialogButton"
               aria-label="delete"
-              color="secondary"
-              onClick={() => dispatch({ type: ActionType.DELETE, id: guid })}
-            >
-              <DeleteOutlined />
-            </IconButton>
+              fullName={fullName}
+              guid={guid}
+            />
           </div>
         </div>
       </Card>
@@ -126,12 +129,7 @@ export const ContactCard = ({ id, contact, isLoading }) => {
 
 ContactCard.propTypes = {
   id: PropTypes.number.isRequired,
-  contact: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    phoneNumber: PropTypes.string,
-    image: PropTypes.string,
-  }).isRequired,
+  contact: contactShape,
   isLoading: PropTypes.bool,
 }
 
