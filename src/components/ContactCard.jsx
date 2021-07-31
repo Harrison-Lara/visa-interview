@@ -42,7 +42,6 @@ export const ContactCard = ({ id, contact, isLoading }) => {
     name: { first: firstName, last: lastName },
     phone,
     picture: { large: image },
-    email,
   } = contact
   const { card, info, content, photo, actions } = useStyles()
 
@@ -88,19 +87,6 @@ export const ContactCard = ({ id, contact, isLoading }) => {
                 id="phoneNumberText"
               >
                 {phone}
-              </Typography>
-            )}
-            {isLoading ? (
-              <Skeleton width="100%">
-                <Typography>.</Typography>
-              </Skeleton>
-            ) : (
-              <Typography
-                variant="subtitle1"
-                color="textSecondary"
-                id="emailText"
-              >
-                {email}
               </Typography>
             )}
           </CardContent>
