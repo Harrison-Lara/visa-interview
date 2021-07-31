@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import useFetch from 'use-http'
 import { Grid, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { useContactsContext } from '../context'
 import { ContactsListWrapper } from './ContactsListWrapper'
 import { ContactCard } from './ContactCard'
 
@@ -15,15 +16,22 @@ const useStyles = makeStyles((theme) => ({
 
 export const ContactsListLanding = () => {
   const { cardGrid } = useStyles()
+  const { state, dispatch } = useContactsContext()
   const {
     loading,
     error,
     data = [],
   } = useFetch('https://randomuser.me/api/?results=25', [])
 
+  useEffect(() => {
+    dispatch({
+      state: data?.results,
+    })
+  }, [data?.results, dispatch])
+
   const generateContactCards = useMemo(
     () =>
-      data?.results?.map((contact, index) => {
+      state?.contacts?.map((contact, index) => {
         const props = {
           id: index,
           contact,
@@ -32,7 +40,7 @@ export const ContactsListLanding = () => {
 
         return <ContactCard {...props} />
       }),
-    [data?.results, loading]
+    [state, loading]
   )
 
   if (error) {

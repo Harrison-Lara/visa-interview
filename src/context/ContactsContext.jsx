@@ -1,23 +1,31 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useContext } from 'react'
+import { ActionType } from '../constants'
 
-export const ContactsContext = createContext({ contacts: [] })
+const initialState = {
+  contacts: [],
+}
+
+const ContactsContext = createContext(initialState)
+ContactsContext.displayName = 'ContactsContext'
+
+export const useContactsContext = () => useContext(ContactsContext)
 
 export const ContactsProvider = ({ children }) => {
   const contactsReducer = (state, action) => {
-    switch (action) {
-      case 'update':
+    switch (action.type) {
+      case ActionType.UPDATE:
         return state
-      case 'delete':
-        return state
-      case 'create':
+      case ActionType.DELETE:
+        return {
+          contacts: state.contacts.filter(
+            (contact) => contact.login.uuid !== action.id
+          ),
+        }
+      case ActionType.CREATE:
         return state
       default:
-        return state
+        return { contacts: action.state }
     }
-  }
-
-  const initialState = {
-    contacts: [],
   }
 
   const [state, dispatch] = useReducer(contactsReducer, initialState)

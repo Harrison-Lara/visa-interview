@@ -1,1 +1,1 @@
-export { ContactsProvider, ContactsContext } from './ContactsContext'
+export { ContactsProvider, useContactsContext } from './ContactsContext'

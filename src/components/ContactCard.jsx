@@ -13,6 +13,9 @@ import { Skeleton } from '@material-ui/lab'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
 
+import { ActionType } from '../constants'
+import { useContactsContext } from '../context'
+
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
@@ -43,13 +46,14 @@ export const ContactCard = ({ id, contact, isLoading }) => {
     email,
   } = contact
   const { card, info, content, photo, actions } = useStyles()
+  const { dispatch } = useContactsContext()
 
   const fullName = `${firstName} ${lastName}`
-  const key = `Card-${id}`
+  const guid = contact.login.uuid
 
   return (
     <Grid item key={card} xs={12} sm={12} md={6} lg={4}>
-      <Card className={card} id={key} key={key}>
+      <Card className={card} id={guid} key={guid}>
         {isLoading ? (
           <Skeleton variant="rect" width="100%">
             <div style={{ paddingTop: '50%' }} />
@@ -106,7 +110,11 @@ export const ContactCard = ({ id, contact, isLoading }) => {
             <IconButton aria-label="edit" color="primary">
               <EditIcon />
             </IconButton>
-            <IconButton aria-label="delete" color="secondary">
+            <IconButton
+              aria-label="delete"
+              color="secondary"
+              onClick={() => dispatch({ type: ActionType.DELETE, id: guid })}
+            >
               <DeleteOutlined />
             </IconButton>
           </div>
@@ -119,7 +127,7 @@ export const ContactCard = ({ id, contact, isLoading }) => {
 ContactCard.propTypes = {
   id: PropTypes.number.isRequired,
   contact: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
     lastName: PropTypes.string,
     phoneNumber: PropTypes.string,
     image: PropTypes.string,
@@ -128,10 +136,13 @@ ContactCard.propTypes = {
 }
 
 ContactCard.defaultProps = {
-  image: '',
-  lastName: '',
-  phoneNumber: '',
   isLoading: false,
+  contact: {
+    image: '',
+    lastName: '',
+    phoneNumber: '',
+    firstName: '',
+  },
 }
 
 export default ContactCard
