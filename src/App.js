@@ -6,9 +6,13 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import { ContactsListLanding } from './components'
+import AddContactForm from './forms/AddContact.form'
+import ContactsListLanding from './containers/ContactsListLanding.container'
+import ViewContact from './components/ViewContact.component'
+import EditContactForm from './forms/EditContact.form'
 import { ContactsProvider } from './context'
 import { Routes } from './constants'
+
 import './App.css'
 
 function App() {
@@ -17,20 +21,16 @@ function App() {
       <ContactsProvider>
         <Router>
           <Switch>
-            <Route exact path={Routes.CONTACTS}>
-              <ContactsListLanding />
-            </Route>
-            <Route exact path={Routes.User}>
-              <ContactsListLanding />
-            </Route>
-            <Route exact path={Routes.ADD}>
-              <ContactsListLanding />
-            </Route>
-            <Route exact path={Routes.EDIT}>
-              <ContactsListLanding />
-            </Route>
-            <Route path="*">
-              <Redirect to={Routes.CONTACTS} />
+            <Route
+              path={Routes.CONTACTS}
+              component={ContactsListLanding}
+              exact
+            />
+            <Route path={Routes.EDIT} component={EditContactForm} exact />
+            <Route path={Routes.VIEW} component={ViewContact} exact />
+            <Route path={Routes.ADD} component={AddContactForm} exact />
+            <Route path="*" component={ContactsListLanding}>
+              <Redirect to={Routes.CONTACTS} component={ContactsListLanding} />
             </Route>
           </Switch>
         </Router>

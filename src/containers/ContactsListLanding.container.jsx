@@ -4,7 +4,8 @@ import { Grid, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { useContactsContext } from '../context'
-import { ContactCard, ContactsListWrapper  } from './index'
+import { ContactCard } from '../components'
+import { ContactsListWrapper } from './index'
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { Header } from './index'
+import { Header } from '../components/index'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {

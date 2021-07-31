@@ -8,5 +8,5 @@ export const Routes = {
   CONTACTS: '/contacts',
   ADD: '/add',
   EDIT: '/edit',
-  USER: './User',
+  VIEW: './view',
 }
