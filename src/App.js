@@ -8,6 +8,7 @@ import {
 
 import { ContactsListLanding } from './components'
 import { ContactsProvider } from './context'
+import { Routes } from './constants'
 import './App.css'
 
 function App() {
@@ -16,20 +17,20 @@ function App() {
       <ContactsProvider>
         <Router>
           <Switch>
-            <Route path="/contacts">
+            <Route exact path={Routes.CONTACTS}>
               <ContactsListLanding />
             </Route>
-            <Route path="/user">
+            <Route exact path={Routes.User}>
               <ContactsListLanding />
             </Route>
-            <Route path="/add">
+            <Route exact path={Routes.ADD}>
               <ContactsListLanding />
             </Route>
-            <Route path="/edit">
+            <Route exact path={Routes.EDIT}>
               <ContactsListLanding />
             </Route>
             <Route path="*">
-              <Redirect to="/contacts" />
+              <Redirect to={Routes.CONTACTS} />
             </Route>
           </Switch>
         </Router>

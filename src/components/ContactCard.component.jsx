@@ -13,7 +13,7 @@ import { Skeleton } from '@material-ui/lab'
 import EditIcon from '@material-ui/icons/Edit'
 
 import { contactShape } from '../propTypes'
-import { DeleteDialog } from './DeleteDialog'
+import { DeleteDialog } from './index'
 
 const useStyles = makeStyles((theme) => ({
   card: {
