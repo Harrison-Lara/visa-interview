@@ -9,7 +9,6 @@ import {
   Grid,
   IconButton,
 } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
 import EditIcon from '@material-ui/icons/Edit'
 
 import { contactShape } from '../propTypes'
@@ -33,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
   photo: {
-    width: 151,
+    width: 150,
   },
 }))
 
-export const ContactCard = ({ id, contact, isLoading }) => {
+export const ContactCard = ({ id, contact }) => {
   const {
     name: { first: firstName, last: lastName },
     phone,
@@ -51,56 +50,32 @@ export const ContactCard = ({ id, contact, isLoading }) => {
   return (
     <Grid item xs={12} sm={12} md={6} lg={4}>
       <Card className={card} id={guid} key={guid}>
-        {isLoading ? (
-          <Skeleton variant="rect" width="100%">
-            <div style={{ paddingTop: '50%' }} />
-          </Skeleton>
-        ) : (
-          <CardMedia
-            id={`photo-${id}`}
-            component="img"
-            src={image}
-            title={`${fullName}-photo`}
-            square="true"
-            className={photo}
-          />
-        )}
+        <CardMedia
+          id={`photo-${id}`}
+          component="img"
+          src={image}
+          title={`${fullName}-photo`}
+          square="true"
+          className={photo}
+        />
         <div className={info}>
           <CardContent className={content} id="cardContent">
-            {isLoading ? (
-              <Skeleton width="100%">
-                <Typography>.</Typography>
-              </Skeleton>
-            ) : (
-              <Typography component="h6" variant="h6" id="firstAndLastNameText">
-                {fullName}
-              </Typography>
-            )}
-            {isLoading ? (
-              <Skeleton width="100%">
-                <Typography>.</Typography>
-              </Skeleton>
-            ) : (
-              <Typography
-                variant="subtitle1"
-                color="textSecondary"
-                id="phoneNumberText"
-              >
-                {phone}
-              </Typography>
-            )}
+            <Typography component="h6" variant="h6" id="firstAndLastNameText">
+              {fullName}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              id="phoneNumberText"
+            >
+              {phone}
+            </Typography>
           </CardContent>
           <div className={actions}>
-            <IconButton
-              key="editButton"
-              id="editButton"
-              aria-label="edit"
-              color="primary"
-            >
+            <IconButton id="editButton" aria-label="edit" color="primary">
               <EditIcon />
             </IconButton>
             <DeleteDialog
-              key="deleteDialogButton"
               id="deleteDialogButton"
               aria-label="delete"
               fullName={fullName}
@@ -116,7 +91,6 @@ export const ContactCard = ({ id, contact, isLoading }) => {
 ContactCard.propTypes = {
   id: PropTypes.number.isRequired,
   contact: contactShape,
-  isLoading: PropTypes.bool,
 }
 
 ContactCard.defaultProps = {

@@ -1,3 +1,5 @@
+export const URL = 'https://randomuser.me/api/?results=25'
+
 export const ActionType = {
   UPDATE: 'UPDATE',
   CREATE: 'CREATE',
@@ -6,7 +8,7 @@ export const ActionType = {
 
 export const Routes = {
   CONTACTS: '/contacts',
-  ADD: '/add',
-  EDIT: '/edit',
-  VIEW: './view',
+  ADD: '/contacts/add',
+  EDIT: '/contacts/edit',
+  VIEW: '/contacts/view',
 }

@@ -1,27 +1,18 @@
 import React, { useMemo, useEffect } from 'react'
 import useFetch from 'use-http'
-import { Grid, Container } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 
+import {
+  generateContactCards,
+  generateSkeletonCards,
+  ContactCardsWrapper,
+} from '../helpers'
 import { useContactsContext } from '../context'
-import { ContactCard } from '../components'
-import { ContactsListWrapper } from './index'
-
-const useStyles = makeStyles((theme) => ({
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-}))
+import { URL } from '../constants'
+import {ContactsError} from '../components'
 
 export const ContactsListLanding = () => {
-  const { cardGrid } = useStyles()
   const { state, dispatch } = useContactsContext()
-  const {
-    loading,
-    error,
-    data = [],
-  } = useFetch('https://randomuser.me/api/?results=25', [])
+  const { loading, data = [], error } = useFetch(URL, [])
 
   useEffect(() => {
     dispatch({
@@ -29,33 +20,17 @@ export const ContactsListLanding = () => {
     })
   }, [data?.results, dispatch])
 
-  const generateContactCards = useMemo(
-    () =>
-      state?.contacts?.map((contact, index) => {
-        const props = {
-          id: index,
-          contact,
-          isLoading: loading,
-        }
+  const createContactCards = useMemo(() => generateContactCards(state), [state])
 
-        return <ContactCard {...props} />
-      }),
-    [state, loading]
-  )
-
-  if (error) {
-    return <ContactsListWrapper>Unable to load Contacts</ContactsListWrapper>
+  if (loading) {
+    return <ContactCardsWrapper>{generateSkeletonCards()}</ContactCardsWrapper>
   }
 
-  return (
-    <ContactsListWrapper>
-      <Container className={cardGrid}>
-        <Grid container spacing={4}>
-          {generateContactCards}
-        </Grid>
-      </Container>
-    </ContactsListWrapper>
-  )
+  if (error) {
+    return <ContactsError />
+  }
+
+  return <ContactCardsWrapper>{createContactCards}</ContactCardsWrapper>
 }
 
 export default ContactsListLanding

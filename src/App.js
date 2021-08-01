@@ -12,14 +12,15 @@ import ViewContact from './components/ViewContact.component'
 import EditContactForm from './forms/EditContact.form'
 import { ContactsProvider } from './context'
 import { Routes } from './constants'
+import { ContactsListWrapper } from './containers'
 
 import './App.css'
 
-function App() {
-  return (
-    <main className="app">
+const App = () => (
+  <main className="app">
+    <Router>
       <ContactsProvider>
-        <Router>
+        <ContactsListWrapper>
           <Switch>
             <Route
               path={Routes.CONTACTS}
@@ -33,10 +34,10 @@ function App() {
               <Redirect to={Routes.CONTACTS} component={ContactsListLanding} />
             </Route>
           </Switch>
-        </Router>
+        </ContactsListWrapper>
       </ContactsProvider>
-    </main>
-  )
-}
+    </Router>
+  </main>
+)
 
 export default App

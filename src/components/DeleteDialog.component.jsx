@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
-import ErrorOutline from '@material-ui/icons/ErrorOutline'
+import Warning from '@material-ui/icons/Warning'
 
 import { useContactsContext } from '../context'
 import { ActionType } from '../constants'
@@ -24,16 +24,20 @@ const useStyles = makeStyles((theme) => ({
   },
   errorIcon: {
     marginLeft: '1rem',
+    color: '#ffcc00',
   },
   title: {
-    paddingLeft: '.75rem',
+    paddingLeft: '.3rem',
+  },
+  description: {
+    color: '#000',
   },
 }))
 
 export const DeleteDialog = ({ fullName, guid }) => {
   const [open, setOpen] = useState(false)
   const { dispatch } = useContactsContext()
-  const { errorTitleContainer, errorIcon, title } = useStyles()
+  const { errorTitleContainer, errorIcon, title, description } = useStyles()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -59,14 +63,17 @@ export const DeleteDialog = ({ fullName, guid }) => {
         aria-describedby="delete-dialog-description"
       >
         <div className={errorTitleContainer}>
-          <ErrorOutline color="error" className={errorIcon} />
+          <Warning className={errorIcon} />
           <DialogTitle id="delete-dialog-title" className={title}>
             Warning
           </DialogTitle>
         </div>
         <DialogContent>
-          <DialogContentText id="delete-dialog-description">
-            {`Are you sure you want to delete ${fullName}?`}
+          <DialogContentText
+            id="delete-dialog-description"
+            className={description}
+          >
+            Are you sure you want to delete <strong>{fullName}</strong>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -99,8 +106,8 @@ export const DeleteDialog = ({ fullName, guid }) => {
 }
 
 DeleteDialog.propTypes = {
-  guid: PropTypes.string.isRequired,
-  fullName: PropTypes.string.isRequired,
+  guid: PropTypes.string,
+  fullName: PropTypes.string,
 }
 
 export default DeleteDialog

@@ -10,24 +10,24 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: '#1976d2',
   },
-  titleText: {
+  addIcon: {
+    justifyContent: 'flex-end',
     flexGrow: 1,
+    display: 'flex',
   },
 }))
 
 export const Header = () => {
-  const { header, titleText } = useStyles()
+  const { header, addIcon } = useStyles()
   const history = useHistory()
-
-  const isAddPage = history.location.pathname === Routes.ADD
 
   return (
     <AppBar position="static" className={header}>
       <Toolbar>
-        <Typography variant="h5" className={titleText}>
+        <Typography variant="h4" component="h4">
           Contacts
         </Typography>
-        {!isAddPage && (
+        <div className={addIcon}>
           <IconButton
             color="inherit"
             aria-label="add contact"
@@ -35,7 +35,7 @@ export const Header = () => {
           >
             <AddCircle />
           </IconButton>
-        )}
+        </div>
       </Toolbar>
     </AppBar>
   )
