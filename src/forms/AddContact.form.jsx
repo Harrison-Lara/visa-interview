@@ -13,30 +13,10 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { useContactsContext } from '../context'
 import { ActionType, Routes } from '../constants'
+import { formStyles } from '../helpers'
 
 const useStyles = makeStyles(() => ({
-  title: {
-    color: '#000',
-  },
-  submitButton: {
-    backgroundColor: '#2c88e0',
-    color: '#fff',
-    marginBottom: '1rem',
-    width: '14rem',
-  },
-  cancelButton: {
-    width: '14rem',
-  },
-  buttonsContainer: {
-    display: 'inline-grid',
-  },
-  formField: {
-    marginBottom: '2rem',
-    width: '18rem',
-  },
-  spinner: {
-    marginLeft: '1rem',
-  },
+  ...formStyles,
 }))
 
 export const AddContactForm = () => {
@@ -78,24 +58,12 @@ export const AddContactForm = () => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        <Grid
-          item
-          xs={12}
-          direction="column"
-          justifyContent="flex-end"
-          alignItems="center"
-        >
-          <Typography variant="h5" component="h5" className={title}>
+        <Grid item xs={12} direction="column" justifyContent="flex-end">
+          <Typography variant="h4" component="h4" className={title}>
             Add New Contact
           </Typography>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          direction="column"
-          justifyContent="flex-end"
-          alignItems="center"
-        >
+        <Grid item xs={12} direction="column" justifyContent="flex-end">
           <form onSubmit={formik.handleSubmit}>
             <Grid item xs={12}>
               <TextField
@@ -104,7 +72,7 @@ export const AddContactForm = () => {
                 label="First Name"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.firstName}
+                value={formik.values.last}
                 className={formField}
               />
             </Grid>
@@ -115,7 +83,7 @@ export const AddContactForm = () => {
                 label="Last Name"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.lastName}
+                value={formik.values.first}
                 className={formField}
               />
             </Grid>
@@ -126,7 +94,7 @@ export const AddContactForm = () => {
                 label="Phone Number"
                 variant="outlined"
                 onChange={formik.handleChange}
-                value={formik.values.phoneNumber}
+                value={formik.values.phone}
                 className={formField}
               />
             </Grid>

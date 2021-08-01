@@ -10,9 +10,11 @@ import {
   IconButton,
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
+import { useHistory } from 'react-router-dom'
 
 import { contactShape } from '../propTypes'
 import { DeleteDialog } from './index'
+import { Routes } from '../constants'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -25,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 0 auto',
   },
+  nameSection: {
+    display: 'inline-flex',
+  },
   actions: {
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
   photo: {
     width: 150,
@@ -42,7 +45,8 @@ export const ContactCard = ({ id, contact }) => {
     phone,
     picture: { large: image },
   } = contact
-  const { card, info, content, photo, actions } = useStyles()
+  const { card, info, content, photo, actions, nameSection } = useStyles()
+  const history = useHistory()
 
   const fullName = `${firstName} ${lastName}`
   const guid = contact.login.uuid
@@ -60,9 +64,15 @@ export const ContactCard = ({ id, contact }) => {
         />
         <div className={info}>
           <CardContent className={content} id="cardContent">
-            <Typography component="h6" variant="h6" id="firstAndLastNameText">
-              {fullName}
-            </Typography>
+            <div className={nameSection}>
+              <Typography component="h6" variant="h6" id="firstNameText">
+                {firstName}
+                &nbsp;
+              </Typography>
+              <Typography component="h6" variant="h6" id="lastNameText">
+                {lastName}
+              </Typography>
+            </div>
             <Typography
               variant="subtitle1"
               color="textSecondary"
@@ -72,7 +82,14 @@ export const ContactCard = ({ id, contact }) => {
             </Typography>
           </CardContent>
           <div className={actions}>
-            <IconButton id="editButton" aria-label="edit" color="primary">
+            <IconButton
+              id="editButton"
+              aria-label="edit"
+              color="primary"
+              onClick={() => {
+                history.push(Routes.EDIT, { contactId: guid })
+              }}
+            >
               <EditIcon />
             </IconButton>
             <DeleteDialog
@@ -91,16 +108,6 @@ export const ContactCard = ({ id, contact }) => {
 ContactCard.propTypes = {
   id: PropTypes.number.isRequired,
   contact: contactShape,
-}
-
-ContactCard.defaultProps = {
-  isLoading: false,
-  contact: {
-    image: '',
-    lastName: '',
-    phoneNumber: '',
-    firstName: '',
-  },
 }
 
 export default ContactCard

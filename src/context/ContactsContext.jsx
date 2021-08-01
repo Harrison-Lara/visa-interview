@@ -14,7 +14,27 @@ export const ContactsProvider = ({ children }) => {
   const contactsReducer = (contacts, action) => {
     switch (action.type) {
       case ActionType.UPDATE:
-        return contacts
+        const {
+          contactId,
+          first: firstName,
+          last: lastName,
+          phone: phoneNumber,
+          email: emailAddress,
+        } = action.formValues
+        return contacts.map((contact) =>
+          contact.login.uuid === contactId
+            ? {
+                ...contact,
+                name: {
+                  ...contact.name,
+                  first: firstName,
+                  last: lastName,
+                },
+                phone: phoneNumber,
+                email: emailAddress,
+              }
+            : contact
+        )
       case ActionType.DELETE:
         return contacts.filter((contact) => contact.login.uuid !== action.id)
       case ActionType.CREATE:

@@ -29,13 +29,7 @@ export const EmptyContact = () => {
         justifyContent="flex-end"
         alignItems="center"
       >
-        <Grid
-          item
-          xs={12}
-          direction="column"
-          justifyContent="flex-end"
-          alignItems="center"
-        >
+        <Grid item xs={12}>
           <Typography component="h5" variant="h5" className={message}>
             Create Your First Contact
           </Typography>
