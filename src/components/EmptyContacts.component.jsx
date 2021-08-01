@@ -3,16 +3,16 @@ import { Typography, Grid, Container, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router'
 
-import { Routes } from '../constants'
+import { Routes, themeColor } from '../constants'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   message: {
     color: '#000',
   },
   addButton: {
-    backgroundColor: '#2c88e0',
+    backgroundColor: themeColor,
     color: '#fff',
-    marginTop: '2rem',
+    marginTop: theme.spacing(4),
     width: '9rem',
   },
 }))

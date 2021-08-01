@@ -16,3 +16,5 @@ export const Routes = {
 
 export const mockImageUploadURL =
   'https://randomuser.me/api/portraits/men/1.jpg'
+
+export const themeColor = '#2c88e0'

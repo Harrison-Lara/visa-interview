@@ -1,9 +1,11 @@
+import { themeColor } from '../constants'
+
 export const formStyles = {
   title: {
     color: '#000',
   },
   submitButton: {
-    backgroundColor: '#2c88e0',
+    backgroundColor: themeColor,
     color: '#fff',
     marginBottom: '1rem',
     width: '14rem',

@@ -5,14 +5,14 @@ import { Typography, Grid, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { useContactsContext } from '../context'
-import { ActionType, Routes } from '../constants'
+import { ActionType, Routes, themeColor } from '../constants'
 import { ContactsError } from '../components'
 import { formStyles, ContactFormFields } from '../helpers'
 
 const useStyles = makeStyles(() => ({
   ...formStyles,
   contactNameText: {
-    color: '#2c88e0',
+    color: themeColor,
   },
 }))
 

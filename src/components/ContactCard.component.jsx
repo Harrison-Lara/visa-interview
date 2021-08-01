@@ -11,19 +11,18 @@ import {
   CardActions,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import EditIcon from '@material-ui/icons/Edit'
 
 import { contactShape } from '../propTypes'
-import { DeleteDialog } from './index'
-import { Routes } from '../constants'
+import { DeleteDialog, ViewContactDialog } from './index'
+import { Routes, themeColor } from '../constants'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card: {
     display: 'flex',
     maxWidth: 450,
   },
-  content: {
-    flex: '1 0 auto',
-  },
+  content: {},
   nameSection: {
     display: 'inline-flex',
   },
@@ -31,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
     width: 150,
   },
   actionButton: {
-    color: '#2c88e0',
+    color: themeColor,
+  },
+  actionsSection: {
+    display: 'flex',
   },
 }))
 
@@ -41,7 +43,8 @@ export const ContactCard = ({ id, contact }) => {
     phone,
     picture: { large: image },
   } = contact
-  const { card, content, photo, nameSection, actionButton } = useStyles()
+  const { card, content, photo, nameSection, actionButton, actionsSection } =
+    useStyles()
   const history = useHistory()
 
   const fullName = `${firstName} ${lastName}`
@@ -77,15 +80,12 @@ export const ContactCard = ({ id, contact }) => {
               {phone}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button
-              id="viewContactButton"
-              aria-label="view contact"
-              className={actionButton}
-              size="small"
-            >
-              View
-            </Button>
+          <CardActions className={actionsSection}>
+            <ViewContactDialog
+              id="viewDialogButton"
+              aria-label="open view dialog"
+              contact={contact}
+            />
             <Button
               id="editContactButton"
               aria-label="edit contact"
@@ -95,11 +95,11 @@ export const ContactCard = ({ id, contact }) => {
               className={actionButton}
               size="small"
             >
-              Edit
+              <EditIcon />
             </Button>
             <DeleteDialog
               id="deleteDialogButton"
-              aria-label="delete"
+              aria-label="open delete dialog"
               fullName={fullName}
               guid={guid}
             />

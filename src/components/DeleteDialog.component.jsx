@@ -7,14 +7,13 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  IconButton,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
 import Warning from '@material-ui/icons/Warning'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import { useContactsContext } from '../context'
-import { ActionType } from '../constants'
+import { ActionType, themeColor } from '../constants'
 
 const useStyles = makeStyles((theme) => ({
   errorTitleContainer: {
@@ -23,44 +22,53 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   errorIcon: {
-    marginLeft: '1rem',
+    marginLeft: theme.spacing(2),
     color: '#ffcc00',
   },
   title: {
-    paddingLeft: '.3rem',
+    paddingLeft: theme.spacing(1),
   },
   description: {
     color: '#000',
+  },
+  deleteButton: {
+    color: '#848484',
+  },
+  dialogCancelButton: {
+    color: themeColor,
+  },
+  dialogDeleteButton: {
+    color: '#f44336',
   },
 }))
 
 export const DeleteDialog = ({ fullName, guid }) => {
   const [open, setOpen] = useState(false)
   const { dispatch } = useContactsContext()
-  const { errorTitleContainer, errorIcon, title, description } = useStyles()
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const {
+    errorTitleContainer,
+    errorIcon,
+    title,
+    description,
+    dialogCancelButton,
+    deleteButton,
+    dialogDeleteButton,
+  } = useStyles()
 
   return (
     <>
       <Button
         id="deleteContactButton"
         aria-label="delete contact"
-        color="default"
-        onClick={handleClickOpen}
+        onClick={() => setOpen(true)}
         size="small"
+        className={deleteButton}
       >
-        Remove
+        <DeleteIcon />
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
         aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-description"
       >
@@ -82,8 +90,8 @@ export const DeleteDialog = ({ fullName, guid }) => {
           <Button
             id="cancelButton"
             key="cancelButton"
-            onClick={handleClose}
-            color="primary"
+            onClick={() => setOpen(false)}
+            className={dialogCancelButton}
             variant="text"
           >
             Cancel
@@ -94,10 +102,10 @@ export const DeleteDialog = ({ fullName, guid }) => {
             variant="text"
             onClick={() => {
               dispatch({ type: ActionType.DELETE, id: guid })
-              handleClose()
+              setOpen(false)
             }}
-            color="secondary"
             autoFocus
+            className={dialogDeleteButton}
           >
             Delete
           </Button>

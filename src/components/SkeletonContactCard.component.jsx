@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
   skeletonEditIcon: {
-    marginRight: '1rem',
+    marginRight: theme.spacing(2),
   },
 }))
 
