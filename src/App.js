@@ -8,7 +8,6 @@ import {
 
 import AddContactForm from './forms/AddContact.form'
 import ContactsListLanding from './containers/ContactsListLanding.container'
-import ViewContact from './components/ViewContact.component'
 import EditContactForm from './forms/EditContact.form'
 import { ContactsProvider } from './context'
 import { Routes } from './constants'
@@ -28,9 +27,8 @@ const App = () => (
               exact
             />
             <Route path={Routes.EDIT} component={EditContactForm} exact />
-            <Route path={Routes.VIEW} component={ViewContact} exact />
             <Route path={Routes.CREATE} component={AddContactForm} exact />
-            <Route path="*" component={ContactsListLanding}>
+            <Route path="*">
               <Redirect to={Routes.CONTACTS} component={ContactsListLanding} />
             </Route>
           </Switch>
