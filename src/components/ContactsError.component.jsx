@@ -2,12 +2,13 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Alert, AlertTitle } from '@material-ui/lab'
 
-import {ContactCardsWrapper, generateSkeletonCards} from '../helpers'
+import { generateSkeletonCards } from '../helpers'
+import { ContactCardsWrapper } from '../containers'
 
 const useStyles = makeStyles((theme) => ({
   errorContainer: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 }))
 

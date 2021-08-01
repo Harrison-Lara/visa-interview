@@ -1,26 +1,24 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import useFetch from 'use-http'
 
-import {
-  generateContactCards,
-  generateSkeletonCards,
-  ContactCardsWrapper,
-} from '../helpers'
 import { useContactsContext } from '../context'
-import { URL } from '../constants'
-import {ContactsError} from '../components'
+import { ActionType, URL } from '../constants'
+import { ContactsError, EmptyContact } from '../components'
+import { generateContactCards, generateSkeletonCards } from '../helpers'
+import { ContactCardsWrapper } from '../containers'
 
 export const ContactsListLanding = () => {
-  const { state, dispatch } = useContactsContext()
+  const { contacts, dispatch } = useContactsContext()
   const { loading, data = [], error } = useFetch(URL, [])
 
   useEffect(() => {
-    dispatch({
-      state: data?.results,
-    })
-  }, [data?.results, dispatch])
+    data?.results &&
+      contacts.length === 0 &&
+      dispatch({ type: ActionType.FETCH, contacts: data.results })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.results])
 
-  const createContactCards = useMemo(() => generateContactCards(state), [state])
+  // TODO: delete all users, show add button center screen
 
   if (loading) {
     return <ContactCardsWrapper>{generateSkeletonCards()}</ContactCardsWrapper>
@@ -30,7 +28,13 @@ export const ContactsListLanding = () => {
     return <ContactsError />
   }
 
-  return <ContactCardsWrapper>{createContactCards}</ContactCardsWrapper>
+  if (contacts.length === 0) {
+    return <EmptyContact />
+  }
+
+  return (
+    <ContactCardsWrapper>{generateContactCards(contacts)}</ContactCardsWrapper>
+  )
 }
 
 export default ContactsListLanding
