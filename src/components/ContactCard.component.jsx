@@ -7,9 +7,9 @@ import {
   CardMedia,
   Typography,
   Grid,
-  IconButton,
+  Button,
+  CardActions,
 } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
 import { useHistory } from 'react-router-dom'
 
 import { contactShape } from '../propTypes'
@@ -19,10 +19,7 @@ import { Routes } from '../constants'
 const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
-  },
-  info: {
-    display: 'flex',
-    flexDirection: 'column',
+    maxWidth: 450,
   },
   content: {
     flex: '1 0 auto',
@@ -30,12 +27,11 @@ const useStyles = makeStyles((theme) => ({
   nameSection: {
     display: 'inline-flex',
   },
-  actions: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   photo: {
     width: 150,
+  },
+  actionButton: {
+    color: '#2c88e0',
   },
 }))
 
@@ -45,7 +41,7 @@ export const ContactCard = ({ id, contact }) => {
     phone,
     picture: { large: image },
   } = contact
-  const { card, info, content, photo, actions, nameSection } = useStyles()
+  const { card, content, photo, nameSection, actionButton } = useStyles()
   const history = useHistory()
 
   const fullName = `${firstName} ${lastName}`
@@ -53,7 +49,7 @@ export const ContactCard = ({ id, contact }) => {
 
   return (
     <Grid item xs={12} sm={12} md={6} lg={4}>
-      <Card className={card} id={guid} key={guid}>
+      <Card className={card} id={guid} key={guid} raised={true}>
         <CardMedia
           id={`photo-${id}`}
           component="img"
@@ -62,7 +58,7 @@ export const ContactCard = ({ id, contact }) => {
           square="true"
           className={photo}
         />
-        <div className={info}>
+        <div>
           <CardContent className={content} id="cardContent">
             <div className={nameSection}>
               <Typography component="h6" variant="h6" id="firstNameText">
@@ -81,24 +77,33 @@ export const ContactCard = ({ id, contact }) => {
               {phone}
             </Typography>
           </CardContent>
-          <div className={actions}>
-            <IconButton
-              id="editButton"
-              aria-label="edit"
-              color="primary"
+          <CardActions>
+            <Button
+              id="viewContactButton"
+              aria-label="view contact"
+              className={actionButton}
+              size="small"
+            >
+              View
+            </Button>
+            <Button
+              id="editContactButton"
+              aria-label="edit contact"
               onClick={() => {
                 history.push(Routes.EDIT, { contactId: guid })
               }}
+              className={actionButton}
+              size="small"
             >
-              <EditIcon />
-            </IconButton>
+              Edit
+            </Button>
             <DeleteDialog
               id="deleteDialogButton"
               aria-label="delete"
               fullName={fullName}
               guid={guid}
             />
-          </div>
+          </CardActions>
         </div>
       </Card>
     </Grid>

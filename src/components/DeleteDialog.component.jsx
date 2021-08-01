@@ -48,14 +48,16 @@ export const DeleteDialog = ({ fullName, guid }) => {
   }
 
   return (
-    <div>
-      <IconButton
-        aria-label="delete"
-        color="secondary"
+    <>
+      <Button
+        id="deleteContactButton"
+        aria-label="delete contact"
+        color="default"
         onClick={handleClickOpen}
+        size="small"
       >
-        <DeleteOutlined />
-      </IconButton>
+        Remove
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -101,7 +103,7 @@ export const DeleteDialog = ({ fullName, guid }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }
 
