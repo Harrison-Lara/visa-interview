@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export const Header = ({ isAddNew }) => {
+export const Header = ({ isAddNew, isEdit }) => {
   const { header, addIcon } = useStyles()
   const history = useHistory()
 
@@ -28,7 +28,7 @@ export const Header = ({ isAddNew }) => {
         <Typography variant="h4" component="h4">
           Contacts
         </Typography>
-        {!isAddNew && (
+        {!isAddNew && !isEdit && (
           <div className={addIcon}>
             <IconButton
               color="inherit"
@@ -46,10 +46,12 @@ export const Header = ({ isAddNew }) => {
 
 Header.propTypes = {
   isAddNew: PropTypes.bool,
+  isEdit: PropTypes.bool
 }
 
 Header.defaultProps = {
   isAddNew: false,
+  isEdit: false,
 }
 
 export default Header

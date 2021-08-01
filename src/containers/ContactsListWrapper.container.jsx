@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
 export const ContactsListWrapper = ({ children, history }) => {
   const { wrapper } = useStyles()
   const isAddNew = history.location.pathname === Routes.CREATE
-
+  const isEdit = history.location.pathname === Routes.EDIT
+  
   return (
     <>
-      <Header isAddNew={isAddNew} />
+      <Header isAddNew={isAddNew} isEdit={isEdit} />
       <div className={wrapper}>
         <Container id="contactsLandingWrapper" key="contactsLandingWrapper">
           {children}
