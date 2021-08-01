@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 import { Routes } from '../constants'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   header: {
     backgroundColor: '#1976d2',
   },

@@ -17,7 +17,7 @@ export const formStyles = {
     display: 'inline-grid',
   },
   formField: {
-    marginBottom: '2rem',
+    marginBottom: '1.5rem',
     width: '18rem',
   },
   spinner: {

@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useContactsContext } from '../context'
 import { ActionType, Routes, themeColor } from '../constants'
 import { ContactsError } from '../components'
-import { formStyles, ContactFormFields } from '../helpers'
+import { formStyles, ContactFormFields, validationSchema } from '../helpers'
 
 const useStyles = makeStyles(() => ({
   ...formStyles,
@@ -33,6 +33,7 @@ export const EditContactForm = () => {
       email: foundContact?.email || '',
       phone: foundContact?.phone || '',
     },
+    validationSchema,
     onSubmit: (values, formikHelpers) => {
       const { setSubmitting } = formikHelpers
       const formValues = { ...values, contactId }

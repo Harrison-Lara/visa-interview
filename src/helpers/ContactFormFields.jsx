@@ -15,7 +15,22 @@ export const ContactFormFields = ({ formik }) => {
   const { submitButton, buttonsContainer, formField, cancelButton, spinner } =
     useStyles()
   const history = useHistory()
-  const { isSubmitting, handleChange, values, handleSubmit } = formik
+  const {
+    isSubmitting,
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    isValid,
+    setFieldTouched,
+    touched,
+  } = formik
+
+  const addNewFormEmptyValues =
+    values.first === '' &&
+    values.last === '' &&
+    values.phone === '' &&
+    values.email === ''
 
   return (
     <form onSubmit={handleSubmit}>
@@ -26,8 +41,11 @@ export const ContactFormFields = ({ formik }) => {
           label="First Name"
           variant="outlined"
           onChange={handleChange}
-          value={formik.values.first}
+          value={values.first}
           className={formField}
+          error={errors?.first && touched?.first ? true : false}
+          helperText={touched?.first && errors?.first}
+          onBlur={() => !touched?.first && setFieldTouched('first')}
         />
       </Grid>
       <Grid item xs={12}>
@@ -39,6 +57,9 @@ export const ContactFormFields = ({ formik }) => {
           onChange={handleChange}
           value={values.last}
           className={formField}
+          error={errors?.last && touched?.last ? true : false}
+          helperText={touched?.last && errors?.last}
+          onBlur={() => !touched?.last && setFieldTouched('last')}
         />
       </Grid>
       <Grid item xs={12}>
@@ -50,6 +71,9 @@ export const ContactFormFields = ({ formik }) => {
           onChange={handleChange}
           value={values.phone}
           className={formField}
+          error={touched?.phone && errors?.phone ? true : false}
+          helperText={touched?.phone && errors?.phone}
+          onBlur={() => !touched?.phone && setFieldTouched('phone')}
         />
       </Grid>
       <Grid item xs={12}>
@@ -61,6 +85,9 @@ export const ContactFormFields = ({ formik }) => {
           onChange={handleChange}
           value={values.email}
           className={formField}
+          error={errors?.email && touched?.email ? true : false}
+          helperText={touched?.email && errors?.email}
+          onBlur={() => !touched?.email && setFieldTouched('email')}
         />
       </Grid>
       <div className={buttonsContainer}>
@@ -70,6 +97,7 @@ export const ContactFormFields = ({ formik }) => {
           variant="contained"
           className={submitButton}
           size="large"
+          disabled={!isValid || addNewFormEmptyValues}
         >
           Submit
           {isSubmitting && (
@@ -94,7 +122,7 @@ export const ContactFormFields = ({ formik }) => {
 }
 
 ContactFormFields.propTypes = {
-  formik: PropTypes.func.isRequired,
+  formik: PropTypes.object.isRequired,
 }
 
 export default ContactFormFields
