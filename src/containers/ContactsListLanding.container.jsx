@@ -18,8 +18,6 @@ export const ContactsListLanding = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.results])
 
-  // TODO: delete all users, show add button center screen
-
   if (loading) {
     return <ContactCardsWrapper>{generateSkeletonCards()}</ContactCardsWrapper>
   }

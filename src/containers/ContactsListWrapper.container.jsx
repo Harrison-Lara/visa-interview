@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { withRouter } from 'react-router'
 
 import { Header } from '../components/index'
+import { Routes } from '../constants'
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -12,12 +14,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export const ContactsListWrapper = ({ children }) => {
+export const ContactsListWrapper = ({ children, history }) => {
   const { wrapper } = useStyles()
+  const isAddNew = history.location.pathname === Routes.CREATE
 
   return (
     <>
-      <Header />
+      <Header isAddNew={isAddNew} />
       <div className={wrapper}>
         <Container id="contactsLandingWrapper" key="contactsLandingWrapper">
           {children}
@@ -29,6 +32,7 @@ export const ContactsListWrapper = ({ children }) => {
 
 ContactsListWrapper.propTypes = {
   children: PropTypes.node,
+  history: PropTypes.object.isRequired,
 }
 
-export default ContactsListWrapper
+export default withRouter(ContactsListWrapper)

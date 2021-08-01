@@ -29,7 +29,7 @@ const App = () => (
             />
             <Route path={Routes.EDIT} component={EditContactForm} exact />
             <Route path={Routes.VIEW} component={ViewContact} exact />
-            <Route path={Routes.ADD} component={AddContactForm} exact />
+            <Route path={Routes.CREATE} component={AddContactForm} exact />
             <Route path="*" component={ContactsListLanding}>
               <Redirect to={Routes.CONTACTS} component={ContactsListLanding} />
             </Route>

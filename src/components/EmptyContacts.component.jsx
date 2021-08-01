@@ -38,7 +38,7 @@ export const EmptyContact = () => {
             variant="contained"
             className={addButton}
             onClick={() => {
-              history.push(Routes.ADD)
+              history.push(Routes.CREATE)
             }}
           >
             Add

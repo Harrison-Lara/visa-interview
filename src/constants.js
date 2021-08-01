@@ -9,7 +9,7 @@ export const ActionType = {
 
 export const Routes = {
   CONTACTS: '/contacts',
-  ADD: '/contacts/add',
+  CREATE: '/contacts/create',
   EDIT: '/contacts/edit',
   VIEW: '/contacts/view',
 }
